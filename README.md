@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SustainFlow — ESG Reporting
 
-## Getting Started
+A web application for managing environmental, social, and governance data and sustainability reporting. The codebase also uses the internal name **GreenMetrics**.
 
-First, run the development server:
+## Project areas
+
+- Organization and user management
+- Sustainability metrics and reporting
+- Dashboard visualizations
+- Authentication and session handling
+- Subscription integration with Stripe
+
+This is a development project. Reporting features should be reviewed against the applicable reporting requirements before operational use.
+
+## Technology
+
+Next.js 16, React 19, TypeScript, SQLite through better-sqlite3, Chart.js, and Stripe.
+
+## Local setup
+
+Use a Node.js release compatible with the versions in [package.json](package.json). Native better-sqlite3 dependencies may require platform build tools.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/patelmup1/SustainFlow-ESG-Reporting.git
+cd SustainFlow-ESG-Reporting
+npm ci
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Create a local `.env.local` and set a unique `JWT_SECRET`. Inspect the integration routes for any additional environment variables needed by the features you use; keep credentials out of Git.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The application uses `src/db/greenmetrics.db`. To initialize a local database, review and run:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+node scripts/init-db.js
+npm run dev
+```
 
-## Learn More
+The initialization script seeds a development administrator with email `admin@greenmetrics.com` and password `admin`. Replace or remove that account before exposing the application. The current authentication code also has a fallback JWT secret; configure your own secret.
 
-To learn more about Next.js, take a look at the following resources:
+Open [localhost:3000](http://localhost:3000).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Commands
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Start the development server |
+| `npm run lint` | Run ESLint |
+| `npm run build` | Create a production build |
+| `npm start` | Start an existing production build |
 
-## Deploy on Vercel
+## Repository guide
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- [src/app](src/app): pages and API routes
+- [src/components](src/components): interface components
+- [src/lib](src/lib): authentication, database, plans, and supporting services
+- [src/db/schema.sql](src/db/schema.sql): database schema
+- [scripts](scripts): initialization and database maintenance tools
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Review database scripts before running them against existing data, and back up the database first.
+
+## Feedback
+
+Report issues through [GitHub Issues](https://github.com/patelmup1/SustainFlow-ESG-Reporting/issues) with steps to reproduce and relevant error messages.
